@@ -1,0 +1,672 @@
+---
+title: "Inferencias en el modelo de regresión y análisis de correlación"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: left
+    link-external-icon: true
+    link-external-newwindow: true
+    css: alineacion.css
+    lang: es
+    bibliography: biblio.bib
+    #css: styles.css
+---
+
+A lo largo del presente apartado se supondrá que es aplicable el modelo de regresión lineal (@eq-1):
+
+$$\begin{align}
+y_i= \beta_0 + \beta_1x_i + \epsilon_i \\
+\end{align}$$ {#eq-1}
+
+Donde:
+
+$$ \begin{align}
+&\beta_0 ~\text{y}~\beta_1 \text{son parámetros}\\
+&x_i ~\text{es una constante conocida}\\
+&\epsilon_i~ \text{son independientes}~ N(0,\sigma^2)\\
+\end{align} $$
+
+## Inferencias sobre $\beta_1$
+
+Con frecuencia, en el estudio de datos usando modelos de regresión lineal simple es importante realizar inferencias sobre $\beta_1$ que corresponde a la pendiente de la recta de regresión planteada en @eq-1.
+
+Por ejemplo, una analista de mercado o de producción que estudie la relación entres las ventas ($y$) y los gastos en publicidad ($x$) puede desear obtener una estimación del intervalo de $\beta_1$, porque le proporciona información sobre cuantos pesos de ventas adicionales, en promedio, genera un pesos adicional de gasto en publicidad.
+
+Estadísticamente, es importante comprobar mediante inferencia si el parámetro $\beta_1$ es igual o diferente de cero. La razón de este interés radica en que si $\beta_1=0$, no existe relación o asociación lineal entre $y$ y $x$, como se muestra a continuación:
+
+$$\begin{align}
+\text{Si}~\beta_1 &= 0 \rightarrow \\
+E(y) &= \beta_0 + (0)x\\
+E(y) &= \beta_0
+\end{align}$$
+
+Antes de seguir discutiendo las inferencias relativas al parámetro $\beta_1$, se debe considerar la distribución muestral de $\hat{\beta_1}$, correspondiente al estimador puntual de $\beta_1$
+
+### Distribución muestral de $\hat{\beta_1}$
+
+El estimador puntual $\hat{\beta_1}$ esta dado por la @eq-2 
+
+$$\begin{align}
+\hat{\beta_1} = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i -\bar{x})^2}
+\end{align}$$ {#eq-2}
+
+La **distribución muestral** de $\hat{\beta_1}$ se refiere a los diferentes valores de $\hat{\beta_1}$ que se obtendrían con un muestreo repetido cuando los niveles de la variable predictora $x$ se mantienen constantes de una muestra a otra.
+
+Para el modelo de regresión normal de @eq-1 la distribución muestral para $\hat{\beta_1}$ es **normal** con la siguiente media y varianza (@eq-3):
+
+$$\begin{align}
+E(\hat{\beta_1}) &= \beta_1\\
+\\
+\sigma^2(\hat{\beta_1}) &= \frac{\sigma^2}{\sum_{i=1}^n (x_i-\bar{x})^2}
+\end{align}$$ {#eq-3}
+
+Para mostrar lo expuesto en @eq-3, es necesario mostrar que $\hat{\beta_1}$ es combinación lineal de las observaciones $y_i$. Lo anterior se expresa matemáticamente como se muestra en la @eq-4:
+
+$$\begin{align}
+\hat{\beta_1} &= \sum_{i=1}^n k_iy_i\\
+\\
+\text{Donde:}&\\
+\\
+k_i &= \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 }
+\end{align}$$ {#eq-4}
+
+Para comprobar lo expresado anteriormente, se observará si la @eq-2 es equivalente a lo expresado en la @eq-4. A partir de la @eq-2 se expande su numerador $\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})$ como sigue:
+
+$$\begin{align}
+\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y}) &= \sum_{i=1}^n  \left[ (x_i -\bar{x})y_i - (x_i-\bar{x})\bar{y} \right]
+\end{align}$$
+
+Se aplica propiedad asociativa:
+
+$$\begin{align}
+\sum_{i=1}^n  \left[ (x_i -\bar{x})y_i - (x_i-\bar{x})\bar{y} \right] &= \sum_{i=1}^n (x_i -\bar{x})y_i - \sum_{i=1}^n (x_i-\bar{x})\bar{y}
+\end{align}$$
+
+El término $\bar{y}$ es una constante para la sumatoria, por lo tanto:
+
+$$\begin{align}
+\sum_{i=1}^n (x_i -\bar{x})y_i - \sum_{i=1}^n (x_i-\bar{x})\bar{y} &= \sum_{i=1}^n (x_i -\bar{x})y_i - \bar{y} \sum_{i=1}^n (x_i-\bar{x})
+\end{align}$$
+
+
+Se usa que $\sum_{i=1}^n (x_i-\bar{x}) = 0$:
+
+$$\begin{align}
+\sum_{i=1}^n (x_i-\bar{x}) &= 0 \\
+\\
+\sum_{i=1}^n (x_i-\bar{x}) &= \sum_{i=1}^n x_i- \sum_{i=1}^n\bar{x}\\
+\\
+\sum_{i=1}^n x_i- \sum_{i=1}^n\bar{x} &= \sum_{i=1}^n x_i- n\bar{x}\\
+\\
+\sum_{i=1}^n x_i- n\bar{x} &= \sum_{i=1}^n x_i- n\sum_{i=1}^n \frac{x_i}{n}\\
+\\
+\sum_{i=1}^n x_i- n\sum_{i=1}^n \frac{x_i}{n} &= \sum_{i=1}^n x_i- \sum_{i=1}^n x_i \\
+\\
+ \sum_{i=1}^n x_i- \sum_{i=1}^n x_i &=0
+\end{align}$$
+
+Por lo tanto:
+
+$$\begin{align}
+\sum_{i=1}^n (x_i -\bar{x})y_i - \bar{y} \sum_{i=1}^n (x_i-\bar{x}) &= \sum_{i=1}^n (x_i -\bar{x})y_i
+\end{align}$$
+
+Llegando a: 
+
+$$\begin{align}
+\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y}) &= \sum_{i=1}^n (x_i -\bar{x})y_i
+\end{align}$$ {#eq-5}
+
+Si se reemplaza @eq-5 en @eq-2, se obtiene que:
+
+$$\begin{align}
+\hat{\beta_1} = \frac{\sum_{i=1}^n(x_i-\bar{x})y_i}{\sum_{i=1}^n (x_i -\bar{x})^2}
+\end{align}$$ {#eq-6}
+
+Ahora, se procede a observar si se obtiene la misma expresión de @eq-6 cuando se usa la @eq-4, de @eq-4 se tiene que:
+
+$$\begin{align}
+\hat{\beta_1} &= \sum_{i=1}^n k_iy_i\\
+\\
+\text{Donde:}&\\
+\\
+k_i &= \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 }
+\end{align}$$
+
+Reemplazando $ki$ en la expresión de $\hat{\beta_1}$ se tiene que:
+
+$$\begin{align}
+\sum_{i=1}^n k_iy_i &= \sum_{i=1}^n \left[ \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2} \right] y_i
+\end{align}$$
+
+Resolviendo la sumatoria:
+
+$$\begin{align}
+\sum_{i=1}^n \left[ \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2} \right] y_i &= \frac{\sum_{i=1}^n (x_i-\bar{x}) yi}{\sum_{i=1}^n (x_i-\bar{x})^2} 
+\end{align}$$
+
+Por lo que se puede expresar $\hat{\beta_1}$ como sigue:
+
+$$\begin{align}
+\hat{\beta_1} &= \frac{\sum_{i=1}^n (x_i-\bar{x}) yi}{\sum_{i=1}^n (x_i-\bar{x})^2} 
+\end{align}$$ {#eq-7}
+
+Como se observa la @eq-6  es igual a la @eq-7. Se puede observar, también, que los $k_i$ son función de los $x_i$, por lo que los $k_i$ son cantidades fijas cuando $x_i$ ha sido fijado. Con lo anterior, se comprueba que $\hat{\beta_1}$ es **combinación lineal** de $y_i$. 
+
+Los coeficientes $k_i$ tienen propiedades importantes que se enumeran a continuación.
+
+#### 1. $\sum_{i=1}^n k_i$ es igual a cero.
+
+$$\begin{align}
+\sum_{i=1}^n k_i=0
+\end{align}$$ {#eq-8}
+
+Se puede comprobar matemáticamente la igualdad, de la @eq-4 se tiene que:
+
+$$\begin{align}
+k_i &= \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 }
+\end{align}$$
+
+Realizando la sumatoria de los $k_i$, se tiene que:
+
+$$\begin{align}
+\sum_{i=1}^n k_i &= \sum_{i=1}^n \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 }
+\end{align}$$
+
+Resolviendo la sumatoria, se obtiene:
+
+$$\begin{align}
+\sum_{i=1}^n \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 } &=  \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 }\sum_{i=1}^n (x_i-\bar{x})
+\end{align}$$
+
+Se aplica propiedad asociativa de la sumatoria:
+
+$$\begin{align}
+\sum_{i=1}^n \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2 } &=  \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- \sum_{i=1}^n\bar{x} \right]
+\end{align}$$
+
+$\bar{x}$ es constate para la sumatoria, por lo tanto:
+
+$$\begin{align}
+\frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- \sum_{i=1}^n\bar{x} \right] &= \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- n \bar{x} \right]
+\end{align}$$
+
+Se usa la definición de $\bar{x} = \frac{\sum_{i=1}^n x_i}{n}$:
+
+$$\begin{align}
+\frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- n \bar{x} \right] &= \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- n \frac{\sum_{i=1}^n xi}{n} \right]
+\end{align}$$
+
+Se cancelan las $n$, se llega a:
+
+$$\begin{align}
+\frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- n \frac{\sum_{i=1}^n xi}{n} \right] &= \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 } \left[\sum_{i=1}^n x_i- \sum_{i=1}^n xi \right] = 0
+\end{align}$$
+
+Para mostrar la propiedad se calculan $k_1$ para el ejemplo de resistencia del motor de cohete, los cálculos de todos los $k_i$ se muestran en la @tbl-2.
+
+Es importante recordar el ejemplo:
+
+Un motor de cohete se fabrica uniendo dos piezas importantes dentro de una carcasa de metal: el propulsor de encendido y el propulsor de sustentación. La resistencia al corte de la unión entre los dos tipos de propulsor es una característica de calidad importante. Se sospecha que la resistencia al corte está relacionada con la edad en semanas del lote de propulsor sustentador. Se han recopilado veinte observaciones sobre la resistencia al corte y la edad del lote correspondiente de propulsor que se muestran en la @tbl-1
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-1
+#| tbl-cap: Datos ejemplo 1.
+#Datos
+observacion <- c(1:20)
+resistencia<- c(2158.70,1678.15,2316.00,2061.30,2207.50,1708.30,1784.70,2575.00,2357.90,2256.70,2165.20,2399.55,1779.80,2336.75,1765.30,2053.50,2414.40,2200.50,2654.20,1753.70)
+edad <- c(15.50,23.75,8,17,5.50,19,24,2.50,7.50,11,13,3.75,25,9.75,22,18,6,12.50,2,21.50)
+datos <- data.frame(observacion,resistencia,edad)
+titulos <- c("Observación $i$", "$y_i$: Resistencia al corte (psi)", "$x_i$: Edad (semanas)" )
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+```
+
+Se usa la @eq-4 para el cálculo de $k_1$. 
+
+$$\begin{align}
+k_i &= \frac{x_i-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2}\\
+\\
+k_1 &= \frac{x_1-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2}\\
+\\
+\bar{x} &= \frac{\sum_{i=1}^{20}x_i}{20} = 13.3625  \\
+\\
+&\sum_{i=1}^{20} (x_i-\bar{x})^2 = 1106.559\\
+\\
+k_1 &= \frac{15.50-13.3625}{1106.559}=0.001931663\\
+\\
+\end{align}$$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-2
+#| tbl-cap: $\sum_{i=1}^n k_i$.
+#Datos
+observacion <- c(1:20)
+resistencia<- c(2158.70,1678.15,2316.00,2061.30,2207.50,1708.30,1784.70,2575.00,2357.90,2256.70,2165.20,2399.55,1779.80,2336.75,1765.30,2053.50,2414.40,2200.50,2654.20,1753.70)
+edad <- c(15.50,23.75,8,17,5.50,19,24,2.50,7.50,11,13,3.75,25,9.75,22,18,6,12.50,2,21.50)
+media_x <- mean(edad)
+edad_media_x <- edad-media_x
+edad_media_x_cuad <- (edad-media_x)^2
+sumatoria1 <- sum(edad_media_x_cuad)
+k_i <- edad_media_x/sumatoria1
+datos <- data.frame(observacion,edad,edad-media_x, edad_media_x_cuad, sumatoria1, k_i)
+titulos <- c("Observación $i$", "$x_i$", "$x_i-\\bar{x}$", "$(x_i-\\bar{x})^2$", "$\\sum_{i=1}^{20} (x_i-\\bar{x})^{2}$", "$k_i$" )
+#Calculo totales
+Total = colSums(datos)
+datos <- rbind(datos,Total) # agrego fila de totales al dataframe
+datos[(dim(datos)[1]), 1] = "Total"
+datos[(dim(datos)[1]), 2] = "-"
+datos[(dim(datos)[1]), 3] = "-"
+datos[(dim(datos)[1]), 5] = "-"
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+#Tabla con kable
+```
+
+
+#### 2. $\sum_{i=1}^n k_ix_i$ es igual a uno.
+
+$$\begin{align}
+\sum_{i=1}^n k_ix_i=1
+\end{align}$$ {#eq-9}
+
+Se demostrará esta característica, reemplazando la @eq-4 en la @eq-9.
+
+$$\begin{align}
+\sum_{i=1}^n k_ix_i &= \sum_{i=1}^n x_i \frac{x_i - \bar{x}}{\sum_{i=1}^n (x_i - \bar{x})^2}\\
+\\
+\sum_{i=1}^nx_i \frac{x_i - \bar{x}}{\sum_{i=1}^n (x_i - \bar{x})^2} &= \frac{\sum_{i=1}^n x_i (x_i-\bar{x})}{\sum_{i=1}^n (x_i - \bar{x})^2}
+\end{align}$$ 
+
+Desarrollando el numerador de la fracción anterior:
+
+$$\begin{align}
+\sum_{i=1}^n x_i (x_i-\bar{x}) &= \sum_{i=1}^n (x_i^2 - x_i\bar{x}) \\
+\\
+\sum_{i=1}^n (x_i^2 - x_i\bar{x}) &= \sum_{i=1}^n x_i^2 - \sum_{i=1}^n x_i\bar{x}\\
+\\
+\sum_{i=1}^n x_i^2 - \sum_{i=1}^n x_i\bar{x} &= \sum_{i=1}^n x_i^2 - \bar{x}\sum_{i=1}^n x_i\\
+\\
+\sum_{i=1}^n x_i^2 - \bar{x}\sum_{i=1}^n x_i &= \sum_{i=1}^n x_i^2 - \bar{x} \bar{x}n\\
+\\
+\sum_{i=1}^n x_i^2 - \bar{x} \bar{x}n &= \sum_{i=1}^n x_i^2 - \bar{x}^2n
+\end{align}$$
+
+Desarrollando el denominador:
+
+$$\begin{align}
+\sum_{i=1}^n (x_i-\bar{x})^2 &= \sum_{i=1}^n (x_i^2 - 2x_i\bar{x} + \bar{x}^2)\\
+\\
+\sum_{i=1}^n (x_i^2 - 2x_i\bar{x} + \bar{x}^2) &= \sum_{i=1}^n x_i^2 - \sum_{i=1}^n  2x_i\bar{x} + \sum_{i=1}^n \bar{x}^2\\
+\\
+\sum_{i=1}^n x_i^2 - \sum_{i=1}^n  2x_i\bar{x} + \sum_{i=1}^n \bar{x}^2 &= \sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n  x_i + n \bar{x}^2\\
+\\
+\sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n  x_i + n \bar{x}^2 &= \sum_{i=1}^n x_i^2 - 2\bar{x}n\bar{x} + n \bar{x}^2\\
+\sum_{i=1}^n x_i^2 - 2\bar{x}n\bar{x} + n \bar{x}^2 &= \sum_{i=1}^n x_i^2 - 2n\bar{x}^2 + n \bar{x}^2 \\
+\\
+\sum_{i=1}^n x_i^2 - 2n\bar{x}^2 + n \bar{x}^2 &= \sum_{i=1}^n x_i^2 - n\bar{x}^2 
+\end{align}$$
+
+Tanto el **numerador** como el **denominador** resultan ser iguales a $\sum_{i=1}^n x_i^2 - n\bar{x}^2$ por lo que se comprueba que:
+
+$$\begin{align}\sum_{i=1}^n k_ix_i = 1
+\end{align}$$
+
+Para mostrar la propiedad se usan los cálculos de los $k_i$ mostrados en la @tbl-2 para el ejemplo de resistencia del motor de cohete y se comprueba la propiedad en la @tbl-3.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-3
+#| tbl-cap: $\sum_{i=1}^n k_ix_i$.
+#Datos
+observacion <- c(1:20)
+resistencia<- c(2158.70,1678.15,2316.00,2061.30,2207.50,1708.30,1784.70,2575.00,2357.90,2256.70,2165.20,2399.55,1779.80,2336.75,1765.30,2053.50,2414.40,2200.50,2654.20,1753.70)
+edad <- c(15.50,23.75,8,17,5.50,19,24,2.50,7.50,11,13,3.75,25,9.75,22,18,6,12.50,2,21.50)
+media_x <- mean(edad)
+edad_media_x <- edad-media_x
+edad_media_x_cuad <- (edad-media_x)^2
+sumatoria1 <- sum(edad_media_x_cuad)
+k_i <- edad_media_x/sumatoria1
+k_i_edad <- k_i*edad
+datos <- data.frame(observacion,k_i, edad, k_i_edad)
+titulos <- c("Observación $i$", "$k_i$", "$x_i$", "$k_ix_i$" )
+#Calculo totales
+Total = colSums(datos)
+datos <- rbind(datos,Total) # agrego fila de totales al dataframe
+datos[(dim(datos)[1]), 1] = "Total"
+datos[(dim(datos)[1]), 3] = "-"
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+#Tabla con kable
+```
+
+#### 3. $\sum_{i=1}^n k_i^2 = \frac{1}{\sum_{i=1}^n (x_i - \bar{x})^2}$ 
+
+$$\begin{align}
+\sum_{i=1}^n k_i^2=\frac{1}{\sum_{i=1}^n (x_i - \bar{x})^2}
+\end{align}$$ {#eq-10}
+
+Se procede a hacer la comprobación de la propiedad mostrada en la @eq-10,  se eleva $k_i$ de la @eq-4 al cuadrado, obteniendo:
+
+$$\begin{align}
+k_i^2 &=  \left[ \frac{x-\bar{x}}{\sum_{i=1}^n (x_i-\bar{x})^2}\right]^2
+\end{align}$$
+
+El cuadrado de la fracción se convierte en el numerador y el denominador al cuadrado.
+
+$$\begin{align}
+k_i^2 &=  \frac{(x-\bar{x})^2}{\left(\sum_{i=1}^n (x_i-\bar{x})^2 \right)^2}
+\end{align}$$
+
+Se simplifica la expresión
+
+$$\begin{align}
+k_i^2 &=  \frac{1}{\sum_{i=1}^n (x_i-\bar{x})^2 }
+\end{align}$$
+
+
+#### Normalidad
+
+Volviendo a la distribución muestral de $\hat{\beta_1}$ para el modelo de regresión de la @eq-1, la normalidad de la distribución muestral de $\hat{\beta_1}$ se deduce inmediatamente del hecho de que $\hat{\beta_1}$ es una combinación lineal de $y_i$. Los $y_i$ se distribuyen de forma normal y son independientes.
+
+##### Media
+
+El estimador puntual insesgado para $\beta_1$ se puede hallar de la siguiente manera: 
+
+$$\begin{align}
+E[\hat{\beta_1}] &= E \left[ \sum_{i=1}^n k_iy_i \right]\\
+\\
+E \left[ \sum_{i=1}^n k_iy_i \right]&= \sum_{i=1}^n E[k_iy_i]\\
+\\
+\sum_{i=1}^n E[k_iy_i]\ &= \sum_{i=1}^n k_iE[y_i] \\
+\\
+\sum_{i=1}^n k_iE[y_i] &= \sum_{i=1}^n k_i (\beta_0+\beta_1x_i)\\
+\\
+\sum_{i=1}^n k_i (\beta_0+\beta_1x_i) &= \beta_0 \sum_{i=1}^n k_i + \beta_1 \sum_{i=1}^n k_ix_i
+\end{align}$$
+
+
+De la @eq-8 y la @eq-9 se obtienen los resultados de $\sum_{i=1}^n k_i=0$ y de $\sum_{i=1}^n k_ix_i=1$, por lo tanto:
+
+$$\begin{align}
+E[\hat{\beta_1}] &= \beta_1
+\end{align}$$ {#eq-11}
+
+##### Varianza
+
+La varianza de $\hat{\beta_1}$ puede deducirse de manera rápida recordando que $y_i$ son variables aleatorias independientes, cada $y_i$ con varianza $\sigma^2$, y que cada $k_i$ es una constante, obteniendo:
+
+$$\begin{align}
+\sigma^2(\hat{\beta_1}) &= \sigma^2\left( \sum_{i=1}^n k_ix_i \right)\\
+\\
+\sigma^2\left( \sum_{i=1}^n k_ix_i \right)&= \sum_{i=1}^n k_i^2\sigma^2(y_i)\\
+\\
+\sum_{i=1}^n k_i^2\sigma^2(y_i) &= \sum_{i=1}^n k_i^2\sigma^2\\
+\\
+\sum_{i=1}^n k_i^2\sigma^2 &= \sigma^2 \sum_{i=1}^n k_i^2
+\end{align}$$
+
+De la @eq-10 se tiene el valor de $\sum_{i=1}^n k_i^2 = \frac{1}{\sum_{i=1}^n(x_i-\bar{x})^2}$, por lo que:
+
+$$\begin{align}
+\sigma^2(\hat{\beta_1}) &= \sigma^2 \frac{1}{\sum_{i=1}^n(x_i-\bar{x})^2}
+\end{align}$$ {#eq-12}
+
+
+##### Varianza estimada
+
+Se puede estimar la varianza de la distribución muestral de $\hat{\beta_1}$:
+
+$$\begin{align}
+\sigma^2(\hat{\beta_1}) &=  \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2}
+\end{align}$$
+
+Se reemplaza el parámetro $\sigma^2$ por el MSE (cuadrados Medios del Error), un estimador insesgado para $\sigma^2$, por lo que:
+
+$$\begin{align}
+S^2(\hat{\beta_1}) &=  \frac{MSE}{\sum_{i=1}^n(x_i-\bar{x})^2}
+\end{align}$$ {#eq-13}
+
+El estimador puntual $S^2(\hat{\beta_1})$ es un estimador insesgado para $\sigma^2(\hat{\beta_1})$
+
+### Distribución muestral de $\frac{\hat{\beta_1}-\beta_1}{S(\hat{\beta_1})}$
+
+Dado que $\hat{\beta_1}$ sigue un distribución normal, se puede establecer que el estadístico $\frac{\hat{\beta_1}-\beta_1}{\sigma(\hat{\beta_1})}$ es una variable normal estándar. $\sigma(\hat{\beta_1})$ se estima usando $S(\hat{\beta_1})$ y por lo tanto, es de interés establecer la distribución muestral de $\frac{\hat{\beta_1}-\beta_1}{S(\hat{\beta_1})}$.
+
+Cuando un estadístico está estandarizado pero el denominador es una desviación estándar estimada ($S(\hat{\beta_1})$) en lugar de la desviación estándar real ($\sigma(\hat{\beta_1})$) se denomina estadístico estudentizado. Un importante teorema estadístico afirma lo siguiente sobre la estadístico estudentizado:
+
+$$\begin{align}
+\frac{\hat{\beta_1}-\beta_1}{s(\hat{\beta_1})} \sim t~ con~ n-2~ grados~ de~ libertad
+\end{align}$$ {#eq-14}
+
+Los $n-2$ grados de libertad son debido a la estimación de dos parámetros ($\beta_0~y~\beta_1$) para el modelo de regresión. 
+
+### Intervalo de confianza para $\beta_1$ 
+
+Para estimar $\beta_1$ mediante intervalo de confianza se puede usar la siguiente expresión:
+
+$$\begin{align}
+\hat{\beta_1} \pm t_\left(1-\frac{\alpha}{2}, n-2\right)S(\hat{\beta_1})
+\end{align}$$ {#eq-15}
+
+
+### Ejemplo: cálculo de intervalo de confianza para $\beta_1$
+
+La empresa **Toluca Company** fabrica equipos de refrigeración, así como muchas piezas de repuesto. En el pasado, una de las piezas de recambio se fabricaba periódicamente en lotes de distintos tamaños. Cuando se emprendió un programa de mejora de costos, los responsables de la empresa quisieron determinar el tamaño de lote óptimo para producir esta pieza. La producción de esta pieza implica la puesta a punto del proceso de producción (que debe realizarse sea cual sea el tamaño del lote) y operaciones de mecanizado y montaje. Un dato clave para que el modelo determinara el tamaño de lote óptimo fue la relación entre el tamaño de lote y las horas de trabajo necesarias para producir el lote. Para determinar esta relación, se utilizaron datos sobre el tamaño de lote y las horas de trabajo de 25 series de producción recientes. Las condiciones de producción fueron estables durante el periodo de seis meses en el que se realizaron las 25 series y se esperaba que siguieran siendo las mismas durante los tres años siguientes, correspondiente al periodo de planificación para el que se estaba llevando a cabo el programa de mejora de costos.
+
+Los datos sobre tamaño de lote y las horas de trabajo de encuentran en la @tbl-4
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-4
+#| tbl-cap: Ejemplo Toluca Company.
+#Datos
+observacion <- c(1:25)
+tamano <- c(80,30,50,90,70,60,120,80,100,50,40,70,90,20,110,100,30,50,90,110,30,90,40,80,70)
+horas<- c(399,121,221,376,361,224,546,352,353,157,160,252,389,113,435,420,212,268,377,421,273,468,244,342,323)
+datos <- data.frame(observacion,tamano,horas)
+titulos <- c("Observación $i$", "$x_i$: Tamaño de lote", "$y_i$: Horas de trabajo")
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+```
+
+Para resolver este problema es necesario conocer los coeficientes de regresión estimados, teniendo la ecuación de regresión como sigue:
+
+$$\begin{align}
+y = 62.37 + 3.57x
+\end{align}$$
+
+Usando la @eq-15 tenemos que el intervalo de confianza para $\hat{\beta_1}$ es:
+
+$$\begin{align}
+\hat{\beta_1} \pm t_\left(1-\frac{\alpha}{2}, n-2\right)S(\beta_1)
+\end{align}$$
+
+Para el cálculo de $S(\hat{{\beta_1}})$, se usa la @eq-13, obteniendo:
+
+$$\begin{align}
+S^2(\hat{\beta_1}) &=  \frac{MSE}{\sum_{i=1}^n(x_i-\bar{x})^2}
+\end{align}$$
+
+Para el modelo de regresión lineal simple los cuadrados medios del error, $MSE$, se calculan dividiendo la suma de cuadrados del error, $SSE$, entre los grados de libertad. $n-2$, por lo que:
+
+$$\begin{align}
+MSE = \frac{SSE}{n-2}
+\end{align}$$ {#eq-16}
+
+$$\begin{align}
+SSE = \sum_{i=1}^n (y_i - \hat{y_i})^2
+\end{align}$$ {#eq-17}
+
+Se muestra en la , el cálculo de $SSE$ se muestra en la @tbl-5
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-5
+#| tbl-cap: SSE - Ejemplo Toluca Company.
+#Datos
+observacion <- c(1:25)
+tamano <- c(80,30,50,90,70,60,120,80,100,50,40,70,90,20,110,100,30,50,90,110,30,90,40,80,70)
+horas<- c(399,121,221,376,361,224,546,352,353,157,160,252,389,113,435,420,212,268,377,421,273,468,244,342,323)
+#Modelo
+modelo <- lm(horas~tamano)
+predichos <- modelo$fitted.values
+
+#Calculos MSE
+error2 <- (horas - predichos)^2
+sse <- sum(error2)
+mse <- sse/23
+datos <- data.frame(observacion,tamano,horas,predichos,error2)
+titulos <- c("Observación $i$", "$x_i$: Tamaño de lote", "$y_i$: Horas de trabajo", "Predichos $\\hat{y_i}$", "$(y_i - \\hat{y_i})^2$")
+#Calculo totales
+Total = colSums(datos)
+datos <- rbind(datos,Total) # agrego fila de totales al dataframe
+datos[(dim(datos)[1]), 1] = "Total"
+datos[(dim(datos)[1]), 2] = "-"
+datos[(dim(datos)[1]), 3] = "-"
+datos[(dim(datos)[1]), 4] = "-"
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+```
+
+De la @tbl-5 se obtiene que que $SSE = 54825.46$. Para las $25$ observaciones, los grados de libertad del error son $n-2 = 25-2 = 23$, por lo que el $MSE=2383.716$.
+
+En la @tbl-6 se observan los cálculos para $\sum_{i=1}^n (x_i - \bar{x})^2$
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+#| label: tbl-6
+#| tbl-cap: $\sum_{i=1}^n (x_i-\bar{x})^2$ Toluca Company.
+#Datos
+observacion <- c(1:25)
+tamano <- c(80,30,50,90,70,60,120,80,100,50,40,70,90,20,110,100,30,50,90,110,30,90,40,80,70)
+horas<- c(399,121,221,376,361,224,546,352,353,157,160,252,389,113,435,420,212,268,377,421,273,468,244,342,323)
+#Modelo
+modelo <- lm(horas~tamano)
+predichos <- modelo$fitted.values
+
+#Cálculos
+media_tamano <- mean(tamano)
+diferencia <- tamano - media_tamano
+diferencia2 <- (tamano - media_tamano)^2
+datos <- data.frame(observacion,tamano,diferencia,diferencia2)
+titulos <- c("Observación $i$", "$x_i$: Tamaño de lote", "$x_i-\\bar{x}$", "$(x_i-\\bar{x})^2$")
+#Calculo totales
+Total = colSums(datos)
+datos <- rbind(datos,Total) # agrego fila de totales al dataframe
+datos[(dim(datos)[1]), 1] = "Total"
+datos[(dim(datos)[1]), 2] = "-"
+datos[(dim(datos)[1]), 3] = "-"
+#Tabla con kable
+library(knitr)
+kable(datos, col.names = titulos, align = "c", escape=FALSE)
+```
+
+
+Se observa en @tbl-6 que $\sum_{i=1}^n (x_i - \bar{x})^2 = 19800$, por lo que se podría calcular $S(\hat{\beta})$ de la siguiente manera:
+
+$$\begin{align}
+S^2(\hat{\beta_1}) = \frac{2383.716}{19800} = 0.120389637\\
+\\
+S(\hat{\beta_1}) = 0.3469721847
+\end{align}$$
+
+Es necesario encontrar el cuantil **t de student** que cumpla con una probabilidad de $\left( 1-\frac{\alpha}{2} \right)$ y $n-2$ grados de libertad. Si se buscan en tablas estadísticas como  la que se encuentra en el siguiente enlace: [Tablas estadísticas](https://upbeduco-my.sharepoint.com/:b:/g/personal/delio_salgado_upb_edu_co/ESxjCFgvq65Ejlhz97bQ05oB-0aHomBtnGcERIHqC5eAwA?e=4SmUMb)
+
+Si el nivel de significancia $\alpha=0.05$ el cuantil de la distribución t de student a utilizar es:
+
+$$\begin{align}
+t_{1-\frac{\alpha}{2},~n-2} = t_{0.975,~23}=2.0687
+\end{align}$$
+
+Por lo el intervalo de confianza resulta en:
+
+
+$$\begin{align}
+\hat{\beta_1} \pm t_\left(1-\frac{\alpha}{2}, n-2\right)S(\beta_1) &= 3.57 \pm 2.0687(0.3469721847)\\
+\\
+2.852218642 &\leq \beta_1 \leq 4.287781358
+\end{align}$$
+
+Así, con un nivel de confianza del $0.95$, se estima que el número medio de horas de trabajo aumenta entre $2.85$ y $4.29$ horas por cada unidad adicional en el lote.
+
+### Test concercientes a $\beta_1$
+
+Dado que $\frac{\hat{\beta_1 - \beta_1}}{S(\hat{\beta_1})}$ sigue una distribución $t$ con $n-2$ grados de libertad, Las pruebas estadísticas relativas a $\beta_1$ pueden realizarse usando una distribución $t$. Los pasos a seguir son los siguientes (en el caso de una prueba de dos colas):
+
+#### Planteamiento de hipótesis
+
+Las hipótesis a plantear cuando se realiza una prueba de hipótesis de dos colas para $\beta_1$
+
+$$\begin{align}
+H_0&: \beta_1 = 0\\
+\\
+H_1&: \beta_1 \neq 0
+\end{align}$$ {#eq-18}
+
+#### Estadístico de prueba
+
+El estadístico de prueba es el siguiente: 
+
+$$\begin{align}
+t_0 = \frac{\hat{\beta_1}}{S(\hat{\beta_1})}
+\end{align}$$ {#eq-19}
+
+
+#### Estadístico de referencia
+
+El estadístico de referencia corresponde a un cuantil de la distribución t de student que cumpla:
+
+$$\begin{align}
+t_{1-\frac{\alpha}{2},~n-2}
+\end{align}$$ {#eq-20}
+
+Se rechaza $H_0$ si:
+
+$$\begin{align}
+|t_0| > t_{1-\frac{\alpha}{2},~n-2}
+\end{align}$$ {#eq-21}
+
+### Ejemplo: test para $\beta_1$ ejemplo Toluca Company
+
+Los datos sobre tamaño de lote y las horas de trabajo para el ejemplo de Toluca Company de encuentran en la @tbl-4.
+
+Se plantean las hipótesis:
+
+$$\begin{align}
+H_0&: \beta_1 = 0\\
+H_1&: \beta_1 \neq 0
+\end{align}$$
+
+Se calcula el estadístico de prueba $t_0$, del cálculo del intervalo de confianza para $\beta_1$ se sabe que:
+
+$$\begin{align}
+\hat{\beta_1} &= 3.57\\
+\\
+S(\hat{\beta_1}) &= 0.3469721847
+\end{align}$$
+
+Por lo que el estadístico de prueba sería:
+
+$$\begin{align}
+t_0 = \frac{3.57}{0.3469721847} =10.2890092
+\end{align}$$
+
+Si $\alpha=0.05$ el cuantil de la distribución t de student es:
+
+$$\begin{align}
+t_{1-\frac{\alpha}{2},~n-1} = t_{0.975,~23}= 2.0687
+\end{align}$$
+
+Realizando la comprobación, se encuentra que:
+
+$$\begin{align}
+t_0 = 10.2890092 > t_{0.975,~23}= 2.0687
+\end{align}$$
+
+Por lo que existe evidencia estadística suficiente para rechazar $H_0$, por lo que $\beta_1 \neq 0$, existe relación lineal entre las horas de trabajo y el tamaño del lote.
+
+
+## Inferencias sobre $\beta_0$
